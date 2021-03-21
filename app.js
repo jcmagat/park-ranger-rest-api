@@ -4,10 +4,15 @@ require('dotenv/config');
 
 const app = express();
 
+// Routes
 app.get('/', (req, res) => {
   res.send("Hello world!")
 });
 
+const parksRoute = require('./routes/parks');
+app.use('/parks', parksRoute);
+
+// Connect to the database
 mongoose.connect(
   process.env.DB_CONNECTION,
   { useNewUrlParser: true },
