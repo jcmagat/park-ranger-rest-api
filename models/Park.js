@@ -1,12 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const ParkSchema = mongoose.Schema({
+const ParkSchema = new mongoose.Schema({
   name: String,
-  location: String,
-  hours: String,
-  photos: String,
-  features: [Feature],
-  ratings: [Rating]
 });
 
-module.exports = mongoose.model('Park', ParkSchema);
+module.exports = mongoose.model("Park", ParkSchema);
