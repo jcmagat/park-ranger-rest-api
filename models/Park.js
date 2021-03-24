@@ -17,7 +17,6 @@ const ParkSchema = new mongoose.Schema({
     },
     coordinates: {
       type: [Number],
-      index: "2dsphere",
     },
     formattedAddress: String,
   },
@@ -26,7 +25,6 @@ const ParkSchema = new mongoose.Schema({
 // Geocode and create GeoJSON location
 ParkSchema.pre("save", async function (next) {
   const loc = await geocoder.geocode(this.address);
-  console.log(loc);
   this.location = {
     type: "Point",
     coordinates: [loc[0].longitude, loc[0].latitude],
@@ -38,4 +36,5 @@ ParkSchema.pre("save", async function (next) {
   next();
 });
 
+ParkSchema.index({ location: "2dsphere" });
 module.exports = mongoose.model("Park", ParkSchema);

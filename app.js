@@ -12,13 +12,14 @@ app.get("/", (req, res) => {
 });
 
 const parksRoute = require("./routes/parks");
-app.use("/parks", parksRoute);
+app.use("/api/v1/parks", parksRoute);
 
 // Connect to the database
 mongoose
   .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   })
   .then(() => console.log("DB Connected!"))
   .catch((err) => {
