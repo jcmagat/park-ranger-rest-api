@@ -35,21 +35,20 @@ exports.addPark = async (req, res, next) => {
   }
 };
 
-// TODO: change to GET
 // TODO: only return id, name, distance
 // @desc Fetch all parks within distance (meters) of longitude, latitude
-// @route POST /parks/nearby
+// @route GET /parks/nearby?long=&lat=&dist=
 // @access Public
-exports.fetchParksNearby = async (req, res, next) => {
+exports.getParksNearby = async (req, res, next) => {
   try {
     const parks = await Park.find({
       location: {
         $near: {
           $geometry: {
             type: "Point",
-            coordinates: [req.body.longitude, req.body.latitude],
+            coordinates: [req.query.long, req.query.lat],
           },
-          $maxDistance: req.body.distance,
+          $maxDistance: req.query.dist,
         },
       },
     });

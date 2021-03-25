@@ -2,7 +2,7 @@ const express = require("express");
 const {
   getParks,
   addPark,
-  fetchParksNearby,
+  getParksNearby,
   getParkById,
   addFeature,
 } = require("../controllers/parks");
@@ -10,7 +10,7 @@ const {
 const router = express.Router();
 
 router.route("/").get(getParks).post(addPark);
-router.route("/nearby").post(fetchParksNearby);
+router.route("/nearby").get(getParksNearby);
 router.route("/:id").get(getParkById).put(addFeature);
 
 module.exports = router;
