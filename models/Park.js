@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const geocoder = require("../utils/geocoder");
+const Feature = require("./Feature");
 
 const ParkSchema = new mongoose.Schema({
   name: {
@@ -20,6 +21,7 @@ const ParkSchema = new mongoose.Schema({
     },
     formattedAddress: String,
   },
+  features: [Feature.schema],
 });
 
 // Geocode and create GeoJSON location

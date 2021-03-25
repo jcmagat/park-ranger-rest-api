@@ -1,4 +1,5 @@
 const Park = require("../models/Park");
+const Feature = require("../models/Feature");
 
 // @desc Get all parks
 // @route GET /parks
@@ -54,6 +55,26 @@ exports.fetchParksNearby = async (req, res, next) => {
       success: true,
       count: parks.length,
       data: parks,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+// @desc Add a feature to a park
+// @route PUT /parks/:id
+// @access Public
+exports.addFeature = async (req, res, next) => {
+  try {
+    const newFeature = await Feature.create(req.body);
+    const updatedPark = await Park.updateOne(
+      { _id: req.params.id },
+      { $addToSet: { features: newFeature } }
+    );
+    return res.status(200).json({
+      success: true,
+      data: updatedPark,
     });
   } catch (err) {
     console.error(err);
