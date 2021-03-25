@@ -1,5 +1,4 @@
 const Park = require("../models/Park");
-const Feature = require("../models/Feature");
 
 // @desc Get all parks
 // @route GET /parks
@@ -85,10 +84,9 @@ exports.getParkById = async (req, res, next) => {
 // @access Public
 exports.addFeature = async (req, res, next) => {
   try {
-    const newFeature = await Feature.create(req.body);
     const updatedPark = await Park.updateOne(
       { _id: req.params.id },
-      { $addToSet: { features: newFeature } }
+      { $addToSet: { features: req.body } }
     );
     return res.status(200).json({
       success: true,
