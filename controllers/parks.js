@@ -35,6 +35,8 @@ exports.addPark = async (req, res, next) => {
   }
 };
 
+// TODO: change to GET
+// TODO: only return id, name, distance
 // @desc Fetch all parks within distance (meters) of longitude, latitude
 // @route POST /parks/nearby
 // @access Public
@@ -62,6 +64,23 @@ exports.fetchParksNearby = async (req, res, next) => {
   }
 };
 
+// @desc Get the park with the specified id
+// @route GET /parks/:id
+// @access Public
+exports.getParkById = async (req, res, next) => {
+  try {
+    const park = await Park.findById(req.params.id);
+    return res.status(200).json({
+      success: true,
+      data: park,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+// TODO: remove _id from Feature
 // @desc Add a feature to a park
 // @route PUT /parks/:id
 // @access Public
