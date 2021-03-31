@@ -22,7 +22,11 @@ exports.getParks = async (req, res, next) => {
 // @access Public
 exports.addPark = async (req, res, next) => {
   try {
-    const park = await Park.create(req.body);
+    // console.log(req);
+    const park = await Park.create({
+      name: req.body.name,
+      address: req.body.address,
+    });
     const savedPark = await park.save();
     return res.status(200).json({
       success: true,
@@ -78,7 +82,6 @@ exports.getParkById = async (req, res, next) => {
   }
 };
 
-// TODO: remove _id from Feature
 // @desc Add a feature to a park
 // @route PUT /parks/:id
 // @access Public
