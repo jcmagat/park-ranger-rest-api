@@ -20,6 +20,7 @@ const ParkSchema = new mongoose.Schema({
     },
     formattedAddress: String,
   },
+  photos: [String],
   features: [
     {
       feature: {

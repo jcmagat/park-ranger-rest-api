@@ -36,7 +36,7 @@ const upload = multer({
 });
 
 router.route("/").get(getParks);
-router.route("/").all(upload.single("parkImage")).post(addPark);
+router.route("/").all(upload.single("photo")).post(addPark);
 
 router.route("/nearby").get(getParksNearby);
 
