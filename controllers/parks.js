@@ -39,23 +39,29 @@ exports.addPark = async (req, res, next) => {
   }
 };
 
-// TODO: only return id, name, distance
 // @desc Fetch all parks within distance (meters) of longitude, latitude
 // @route GET /parks/nearby?long=&lat=&dist=
 // @access Public
 exports.getParksNearby = async (req, res, next) => {
   try {
-    const parks = await Park.find({
-      location: {
-        $near: {
-          $geometry: {
+    const long = parseFloat(req.query.long);
+    const lat = parseFloat(req.query.lat);
+    const dist = parseFloat(req.query.dist); // in meters
+
+    const parks = await Park.aggregate([
+      {
+        $geoNear: {
+          near: {
             type: "Point",
-            coordinates: [req.query.long, req.query.lat],
+            coordinates: [long, lat],
           },
-          $maxDistance: req.query.dist,
+          maxDistance: dist,
+          key: "location",
+          distanceField: "distance",
         },
       },
-    });
+    ]).project("name photos distance");
+
     return res.status(200).json({
       success: true,
       count: parks.length,
@@ -101,3 +107,5 @@ exports.addFeature = async (req, res, next) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+// TODO: addPhoto
