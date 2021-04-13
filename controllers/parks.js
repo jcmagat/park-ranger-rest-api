@@ -90,7 +90,7 @@ exports.getParkById = async (req, res, next) => {
 };
 
 // @desc Add a feature to a park
-// @route PUT /parks/:id
+// @route PUT /parks/:id/addFeature
 // @access Public
 exports.addFeature = async (req, res, next) => {
   try {

@@ -15,6 +15,8 @@ router.route("/").all(upload).post(addPark);
 
 router.route("/nearby").get(getParksNearby);
 
-router.route("/:id").get(getParkById).put(addFeature);
+router.route("/:id").get(getParkById);
+
+router.route("/:id/addFeature").put(addFeature);
 
 module.exports = router;
