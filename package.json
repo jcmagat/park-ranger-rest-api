@@ -9,10 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.884.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.12.1",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "node-geocoder": "^3.27.0"
   },
   "devDependencies": {

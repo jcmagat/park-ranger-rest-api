@@ -26,7 +26,7 @@ exports.addPark = async (req, res, next) => {
     const park = await Park.create({
       name: req.body.name,
       address: req.body.address,
-      photos: [req.file.path],
+      photos: [req.file.key],
     });
     const savedPark = await park.save();
     return res.status(200).json({
@@ -108,4 +108,5 @@ exports.addFeature = async (req, res, next) => {
   }
 };
 
-// TODO: addPhoto
+// @desc Add a photo to a park
+//
