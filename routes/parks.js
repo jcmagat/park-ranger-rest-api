@@ -6,6 +6,7 @@ const {
   getParksNearby,
   getParkById,
   addFeature,
+  addPhoto,
 } = require("../controllers/parks");
 
 const router = express.Router();
@@ -17,6 +18,8 @@ router.route("/nearby").get(getParksNearby);
 
 router.route("/:id").get(getParkById);
 
-router.route("/:id/addFeature").put(addFeature);
+router.route("/:id/features").put(addFeature);
+
+router.route("/:id/photos").all(upload).put(addPhoto);
 
 module.exports = router;
