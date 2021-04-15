@@ -1,4 +1,5 @@
 const Park = require("../models/Park");
+const { getFileStream } = require("./s3");
 
 // @desc Get all parks
 // @route GET /parks
@@ -111,6 +112,7 @@ exports.addFeature = async (req, res, next) => {
 // @access Public
 exports.addPhoto = async (req, res, next) => {
   try {
+    console.log(req.file);
     const updatedPark = await Park.updateOne(
       { _id: req.params.id },
       { $addToSet: { photos: req.file.key } }
@@ -123,4 +125,14 @@ exports.addPhoto = async (req, res, next) => {
     console.error(err);
     res.status(500).json({ error: "Server error" });
   }
+};
+
+// @desc Get photo
+// @route GET /photos/:key
+// @access Public
+exports.getPhoto = async (req, res, next) => {
+  const key = req.params.key;
+  const readStream = getFileStream(key);
+
+  readStream.pipe(res);
 };
