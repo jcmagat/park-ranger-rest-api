@@ -17,7 +17,6 @@ exports.getParks = async (req, res, next) => {
   }
 };
 
-// TODO: add features
 // @desc Add a park
 // @route POST /parks
 // @access Public
@@ -26,7 +25,6 @@ exports.addPark = async (req, res, next) => {
     const park = await Park.create({
       name: req.body.name,
       address: req.body.address,
-      photos: [req.file.key],
     });
     const savedPark = await park.save();
     return res.status(200).json({

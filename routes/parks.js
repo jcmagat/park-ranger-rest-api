@@ -11,8 +11,7 @@ const {
 
 const router = express.Router();
 
-router.route("/").get(getParks);
-router.route("/").all(upload).post(addPark);
+router.route("/").get(getParks).post(addPark);
 
 router.route("/nearby").get(getParksNearby);
 
