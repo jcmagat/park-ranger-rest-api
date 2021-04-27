@@ -37,6 +37,11 @@ const ParkSchema = new mongoose.Schema({
         ],
         required: true,
       },
+      availability: {
+        type: String,
+        enum: ["Members Only", "Public"],
+        required: true,
+      },
       _id: false,
     },
   ],
