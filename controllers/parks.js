@@ -72,6 +72,26 @@ exports.getParksNearby = async (req, res, next) => {
   }
 };
 
+// @desc Get all parks with the specified name
+// @route GET /parks/search?name=
+// @access Public
+exports.getParksByName = async (req, res, next) => {
+  try {
+    const input = req.query.name;
+    const nameRegex = new RegExp(input, "i");
+
+    const parks = await Park.aggregate([{ $match: { name: nameRegex } }]);
+    return res.status(200).json({
+      success: true,
+      count: parks.length,
+      data: parks,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 // @desc Get the park with the specified id
 // @route GET /parks/:id
 // @access Public
@@ -128,7 +148,7 @@ exports.addPhoto = async (req, res, next) => {
 };
 
 // @desc Get photo
-// @route GET /photos/:key
+// @route GET parks/photos/:key
 // @access Public
 exports.getPhoto = async (req, res, next) => {
   const key = req.params.key;

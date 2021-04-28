@@ -4,6 +4,7 @@ const {
   getParks,
   addPark,
   getParksNearby,
+  getParksByName,
   getParkById,
   addFeature,
   addPhoto,
@@ -15,6 +16,8 @@ const router = express.Router();
 router.route("/").get(getParks).post(addPark);
 
 router.route("/nearby").get(getParksNearby);
+
+router.route("/search").get(getParksByName);
 
 router.route("/:id").get(getParkById);
 
